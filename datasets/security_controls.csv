@@ -1,0 +1,15 @@
+asset_name,name,control_type,description,effectiveness,implementation_cost,status,implemented_at
+,Multi-Factor Authentication,MFA,"Enforces MFA across all employee and admin logins",0.85,1000000.0,Active,2025-01-15 00:00:00
+Internet-Banking-Web-01,Web Application Firewall,WAF,"Cloud-based WAF filtering malicious web traffic",0.80,1200000.0,Active,2025-02-01 00:00:00
+Payment-Gateway-01,API Rate Limiting,API Rate Limiting,"Throttling and anomaly detection for payment API endpoints",0.75,800000.0,Active,2025-03-10 00:00:00
+Customer-DB-01,Database Encryption,Encryption,"AES-256 transparent data encryption at rest",0.90,1500000.0,Active,2025-01-20 00:00:00
+Payment-DB-01,Immutable Backup,Backup,"WORM immutable backups for transaction ledgers",0.85,1400000.0,Active,2025-02-15 00:00:00
+SIEM-Server-01,SIEM Monitoring,SIEM Monitoring,"Centralized log collection and automated SOC alerting",0.75,1800000.0,Active,2024-11-01 00:00:00
+,Endpoint Detection and Response,EDR,"EDR agents deployed on servers and critical workstations",0.75,1200000.0,Active,2025-01-05 00:00:00
+,Network Segmentation,Network Segmentation,"VLAN isolation between DMZ, application, and DB tiers",0.80,1500000.0,Active,2024-10-15 00:00:00
+,Automated Patching,Patching,"Automated patch management pipeline for OS and software",0.90,800000.0,Planned,
+Auth-Service-01,Privileged Access Management,IAM,"Vault-based PAM for administrative credential rotation",0.85,1100000.0,Active,2025-04-01 00:00:00
+Mobile-Banking-API-01,Web Application Firewall,WAF,"API gateway security inspection module",0.70,900000.0,Planned,
+HR-DB-01,Database Encryption,Encryption,"Field-level encryption for employee PII",0.85,600000.0,Inactive,
+,Identity Monitoring,Identity Monitoring,"Dark web credential leak and identity monitoring",0.65,500000.0,Active,2025-05-01 00:00:00
+Customer-API-01,API Rate Limiting,API Rate Limiting,"Rate limiting on customer search and profile endpoints",0.75,400000.0,Active,2025-03-20 00:00:00

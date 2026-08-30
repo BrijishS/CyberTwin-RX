@@ -1,0 +1,13 @@
+name,asset_type,hostname,ip_address,business_service_name,criticality,financial_value,internet_exposed,environment,owner_department,is_active
+Internet-Banking-Web-01,Server,netbank-web-01.cyberbank.com,10.0.1.10,Digital Banking,Critical,15000000.0,True,Production,Digital Banking,True
+Mobile-Banking-API-01,API,mobile-api-01.cyberbank.com,10.0.1.11,Digital Banking,Critical,20000000.0,True,Production,Digital Banking,True
+Auth-Service-01,Application,auth-srv-01.internal,10.0.1.12,Digital Banking,Critical,15000000.0,False,Production,Digital Banking,True
+Payment-Gateway-01,API,payment-gw-01.cyberbank.com,10.0.2.10,Payment Processing,Critical,30000000.0,True,Production,Payments,True
+Transaction-API-01,API,txn-api-01.internal,10.0.2.11,Payment Processing,Critical,25000000.0,False,Production,Payments,True
+Payment-DB-01,Database,pay-db-01.internal,10.0.2.20,Payment Processing,Critical,25000000.0,False,Production,Payments,True
+Customer-DB-01,Database,cust-db-01.internal,10.0.3.20,Customer Data Management,Critical,60000000.0,False,Production,Data Management,True
+Customer-API-01,API,cust-api-01.cyberbank.com,10.0.3.10,Customer Data Management,Critical,40000000.0,True,Production,Data Management,True
+Employee-Portal-01,Server,emp-portal-01.cyberbank.com,10.0.4.10,Employee Services,Medium,10000000.0,True,Production,Human Resources,True
+HR-DB-01,Database,hr-db-01.internal,10.0.4.20,Employee Services,Medium,10000000.0,False,Production,Human Resources,True
+SIEM-Server-01,Server,siem-srv-01.internal,10.0.5.10,Security Operations,High,15000000.0,False,Production,Cyber Security,True
+SOC-Monitoring-01,Application,soc-mon-01.internal,10.0.5.11,Security Operations,High,15000000.0,False,Production,Cyber Security,True

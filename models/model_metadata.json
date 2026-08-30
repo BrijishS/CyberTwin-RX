@@ -1,0 +1,48 @@
+{
+  "model_name": "RandomForestClassifier",
+  "training_date": "2026-08-30 03:14:27 UTC",
+  "training_samples": 5000,
+  "test_samples": 1000,
+  "dataset_type": "Synthetic cybersecurity training dataset for prototype validation",
+  "features": [
+    "cvss_score",
+    "epss_score",
+    "kev_status",
+    "internet_exposed",
+    "patch_available",
+    "asset_criticality",
+    "control_effectiveness",
+    "open_vulnerability_count",
+    "high_vulnerability_count",
+    "business_criticality"
+  ],
+  "metrics": {
+    "accuracy": 0.737,
+    "precision": 0.7368,
+    "recall": 0.7324,
+    "f1": 0.7346,
+    "roc_auc": 0.8188,
+    "confusion_matrix": [
+      [
+        373,
+        130
+      ],
+      [
+        133,
+        364
+      ]
+    ]
+  },
+  "feature_importances": {
+    "epss_score": 0.1754,
+    "cvss_score": 0.17,
+    "control_effectiveness": 0.1607,
+    "internet_exposed": 0.1138,
+    "kev_status": 0.087,
+    "asset_criticality": 0.0748,
+    "open_vulnerability_count": 0.0717,
+    "high_vulnerability_count": 0.0529,
+    "business_criticality": 0.0486,
+    "patch_available": 0.0451
+  }
+}

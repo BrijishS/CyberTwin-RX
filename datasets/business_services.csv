@@ -1,0 +1,6 @@
+name,description,criticality,financial_value,department,is_active
+Digital Banking,"Internet and mobile banking services for customers",Critical,50000000.0,Digital Banking,True
+Payment Processing,"Handles customer payments and transaction processing",Critical,80000000.0,Payments,True
+Customer Data Management,"Stores and manages sensitive customer information",Critical,100000000.0,Data Management,True
+Employee Services,"Internal employee applications and HR services",Medium,20000000.0,Human Resources,True
+Security Operations,"Security monitoring and incident response systems",High,30000000.0,Cyber Security,True

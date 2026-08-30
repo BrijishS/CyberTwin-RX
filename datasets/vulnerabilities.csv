@@ -1,0 +1,21 @@
+asset_name,cve_id,title,description,cvss_score,epss_score,kev_status,patch_available,status
+Payment-Gateway-01,CVE-2026-DEMO-001,Remote Code Execution in Payment Gateway,Unauthenticated RCE vulnerability in gateway endpoint,9.8,0.92,True,True,Open
+Mobile-Banking-API-01,CVE-2026-DEMO-002,Authentication Bypass in Mobile API,Flaw allowing token forging and auth bypass,9.4,0.88,True,True,Open
+Internet-Banking-Web-01,CVE-2026-DEMO-003,SQL Injection in Login Endpoint,SQL injection vulnerability in customer login form,9.1,0.82,True,True,Open
+Auth-Service-01,CVE-2026-DEMO-004,Privilege Escalation in SSO Engine,Local privilege escalation in authentication service,8.8,0.65,False,True,Open
+Customer-DB-01,CVE-2026-DEMO-005,Database Privilege Misconfiguration,Database user has excessive administrative privileges,8.5,0.55,False,True,Open
+Customer-API-01,CVE-2026-DEMO-006,Improper Access Control in Data API,Broken object level authorization exposes PII,8.2,0.60,True,True,Open
+Transaction-API-01,CVE-2026-DEMO-007,Weak Session Validation,Session tokens do not expire properly upon logout,7.6,0.42,False,True,Mitigated
+Payment-DB-01,CVE-2026-DEMO-008,Outdated Database Engine TLS,Deprecated TLS 1.0 enabled for database connections,7.2,0.35,False,True,Mitigated
+Employee-Portal-01,CVE-2026-DEMO-009,Cross-Site Scripting (XSS) in HR Portal,Stored XSS in employee feedback module,6.5,0.25,False,True,Open
+HR-DB-01,CVE-2026-DEMO-010,Unencrypted Backup Storage,Backup archives stored without AES-256 encryption,6.1,0.18,False,True,Open
+SIEM-Server-01,CVE-2026-DEMO-011,Unpatched Web Framework in SIEM UI,Known vulnerability in web dashboard library,7.8,0.50,False,True,Open
+SOC-Monitoring-01,CVE-2026-DEMO-012,Information Disclosure via Debug Logs,Verbose error logs expose API keys and internal IPs,5.4,0.15,False,False,Accepted
+Internet-Banking-Web-01,CVE-2026-DEMO-013,HTTP Request Smuggling,Reverse proxy desynchronization vulnerability,8.1,0.58,False,True,Open
+Mobile-Banking-API-01,CVE-2026-DEMO-014,Lack of API Rate Limiting,API susceptible to automated brute-force attacks,7.5,0.45,False,True,Open
+Payment-Gateway-01,CVE-2026-DEMO-015,Deserialization of Untrusted Data,Java deserialization bug in legacy payment handler,9.0,0.78,True,True,Open
+Customer-DB-01,CVE-2026-DEMO-016,Unpatched OS Kernel Vulnerability,Linux kernel vulnerability allowing container breakout,7.8,0.48,False,True,Open
+Customer-API-01,CVE-2026-DEMO-017,CORS Misconfiguration,Overly permissive CORS policy allows arbitrary origin access,4.8,0.12,False,True,Patched
+Employee-Portal-01,CVE-2026-DEMO-018,Outdated JavaScript Dependency,Vulnerable version of jQuery loaded on login page,3.5,0.05,False,True,Patched
+SIEM-Server-01,CVE-2026-DEMO-019,Weak Cryptographic Algorithm,SHA-1 certificate used for internal communication,3.2,0.04,False,True,Accepted
+SOC-Monitoring-01,CVE-2026-DEMO-020,Directory Traversal in Static File Handler,File path traversal exposes public assets directory,4.2,0.08,False,True,Patched
