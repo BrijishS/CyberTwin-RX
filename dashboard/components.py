@@ -35,7 +35,7 @@ def render_metric_card(
     icon_html = icon_svgs.get(icon_type, icon_svgs["risk"])
     subtitle_html = f'<div style="color: #94A8C2; font-size: 0.72rem; margin-top: 2px;">{subtitle}</div>' if subtitle else ''
 
-    card_html = f"""<div style="background: #0A1422; border: 1px solid #12365B; border-top: 2px solid {color}; border-radius: 8px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);">{icon_html}<div><div style="color: #94A8C2; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">{title}</div><div style="color: {color}; font-size: 1.7rem; font-weight: 800; margin: 2px 0 0 0; font-family: monospace; letter-spacing: -0.5px;">{value}</div>{subtitle_html}</div></div>"""
+    card_html = f"""<div class="cybertwin-metric-card" style="background: #0A1422; border: 1px solid #12365B; border-top: 2px solid {color}; border-radius: 8px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5); width: 100%; min-width: 0; box-sizing: border-box;">{icon_html}<div style="min-width: 0; flex: 1;"><div style="color: #94A8C2; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">{title}</div><div style="color: {color}; font-size: clamp(1.15rem, 2vw, 1.8rem); font-weight: 800; margin: 2px 0 0 0; font-family: monospace; letter-spacing: -0.5px; white-space: normal; word-break: break-word;">{value}</div>{subtitle_html}</div></div>"""
     st.markdown(card_html, unsafe_allow_html=True)
 
 

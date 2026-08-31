@@ -41,13 +41,19 @@ st.markdown("""<style>
     footer { visibility: hidden; }
     header[data-testid="stHeader"] { height: 0px !important; visibility: hidden; }
 
+    html, body, .stApp, .main, .block-container {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box;
+    }
+
     /* Dark Palette & Global Typography */
     .main, .stApp {
         background-color: #030913 !important;
         color: #94A8C2 !important;
         font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif !important;
     }
-    
+
     /* Compact Screen Spacing for 1920x1080 Single Screen Fit */
     .block-container {
         padding-top: 0.4rem !important;
@@ -56,7 +62,7 @@ st.markdown("""<style>
         padding-right: 1rem !important;
         max-width: 100% !important;
     }
-    
+
     /* Header Banner matching Prototype */
     .command-header-banner {
         background: #0A1422;
@@ -67,11 +73,16 @@ st.markdown("""<style>
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        min-width: 0;
     }
     .header-brand-group {
         display: flex;
         align-items: center;
         gap: 10px;
+        min-width: 0;
+        flex-wrap: wrap;
     }
     .shield-badge-logo {
         background: linear-gradient(135deg, #00D9FF 0%, #3C82FF 100%);
@@ -85,9 +96,10 @@ st.markdown("""<style>
         font-size: 1.05rem;
         font-weight: 800;
         box-shadow: 0 0 10px rgba(0, 217, 255, 0.4);
+        flex-shrink: 0;
     }
     .brand-title-text {
-        font-size: 1.15rem;
+        font-size: clamp(0.95rem, 1.4vw, 1.2rem);
         font-weight: 800;
         color: #F3F7FF;
         line-height: 1.1;
@@ -99,13 +111,16 @@ st.markdown("""<style>
     }
     .header-title-group {
         text-align: center;
+        flex: 1 1 220px;
+        min-width: 0;
     }
     .main-title-heading {
-        font-size: 1.2rem;
+        font-size: clamp(0.9rem, 1.6vw, 1.2rem);
         font-weight: 800;
         color: #F3F7FF;
         letter-spacing: 0.5px;
         text-transform: uppercase;
+        line-height: 1.2;
     }
     .sub-title-heading {
         font-size: 0.72rem;
@@ -116,7 +131,10 @@ st.markdown("""<style>
     .header-status-group {
         display: flex;
         align-items: center;
+        justify-content: flex-end;
         gap: 8px;
+        flex-wrap: wrap;
+        min-width: 0;
     }
     .badge-status-green {
         background: rgba(22, 199, 132, 0.15);
@@ -153,6 +171,7 @@ st.markdown("""<style>
         padding: 5px 12px !important;
         font-size: 0.78rem !important;
         text-transform: uppercase !important;
+        min-height: 40px !important;
     }
     .stButton > button:hover {
         box-shadow: 0 0 12px rgba(0, 217, 255, 0.5) !important;
@@ -162,6 +181,15 @@ st.markdown("""<style>
     .dataframe {
         font-size: 0.76rem !important;
         background-color: #0A1422 !important;
+    }
+    div[data-testid="stDataFrame"], div[data-testid="stDataFrameContainer"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+    }
+    .stPlotlyChart, .stPlotlyChart > div {
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     /* Bottom Status Footer */
@@ -176,6 +204,59 @@ st.markdown("""<style>
         align-items: center;
         font-size: 0.74rem;
         color: #94A8C2;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    @media (max-width: 1100px) {
+        .command-header-banner { justify-content: center; }
+        .header-brand-group, .header-title-group, .header-status-group {
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+        }
+        .header-status-group {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .block-container {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+            padding-top: 0.5rem !important;
+        }
+        .command-header-banner {
+            padding: 8px 10px;
+        }
+        div[data-testid="stHorizontalBlock"] {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            gap: 0.5rem;
+            width: 100% !important;
+        }
+        div[data-testid="stHorizontalBlock"] > div {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        .main-title-heading {
+            font-size: clamp(0.95rem, 4vw, 1.15rem);
+        }
+        .badge-status-green, .badge-status-cyan {
+            font-size: 0.68rem;
+            white-space: normal;
+        }
+        section[data-testid="stSidebar"] {
+            min-width: min(80vw, 280px) !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .brand-title-text { font-size: 1rem; }
+        .header-brand-group { gap: 6px; }
+        .shield-badge-logo { width: 28px; height: 28px; }
+        .bottom-status-footer { font-size: 0.68rem; }
+        .stButton > button { width: 100% !important; }
     }
 </style>""", unsafe_allow_html=True)
 
@@ -191,13 +272,13 @@ ai_status = client.get_ai_status()
 
 # Top Command Center Header
 ml_badge_html = '<span class="badge-status-cyan">🤖 ML Model: Active</span>' if ai_status.get("loaded") else ''
-st.markdown(f'<div class="command-header-banner"><div class="header-brand-group"><div class="shield-badge-logo">🛡️</div><div><div class="brand-title-text">CyberTwin-RX</div><div class="brand-sub-text">by Hackhives</div></div></div><div class="header-title-group"><div class="main-title-heading">CYBER RISK COMMAND CENTER</div></div><div class="header-status-group"><span class="badge-status-green">🟢 System Health: Healthy</span>{ml_badge_html}<span class="badge-status-cyan">Synthetic Demo Environment</span></div></div>', unsafe_allow_html=True)
-
-
+health_label = "🟢 System Health: Healthy" if backend_online else "🔴 System Health: Unavailable"
+status_badge = '<span class="badge-status-green">{}</span>'.format(health_label) if backend_online else '<span class="badge-status-cyan">Backend API temporarily unavailable.</span>'
+st.markdown(f'<div class="command-header-banner"><div class="header-brand-group"><div class="shield-badge-logo">🛡️</div><div><div class="brand-title-text">CyberTwin-RX</div><div class="brand-sub-text">by Hackhives</div></div></div><div class="header-title-group"><div class="main-title-heading">CYBER RISK COMMAND CENTER</div></div><div class="header-status-group">{status_badge}{ml_badge_html}<span class="badge-status-cyan">Synthetic Demo Environment</span></div></div>', unsafe_allow_html=True)
 
 if not backend_online:
-    st.error("⚠️ Backend API Server is Offline! Please start backend using: `python -m uvicorn backend.main:app --reload`")
-    st.stop()
+    st.warning("Backend API temporarily unavailable.")
+    st.caption(f"Using API base URL: {client.base_url}")
 
 # Compact Left Sidebar Navigation
 st.sidebar.markdown("### 🎛️ Navigation")
@@ -274,7 +355,7 @@ if page == "Overview":
         st.markdown("""<div style="background: #0A1422; border: 1px solid #12365B; border-radius: 8px; padding: 8px 12px 4px 12px;">""", unsafe_allow_html=True)
         graph_data = client.get_digital_twin_graph()
         fig_dt = render_digital_twin_graph(graph_data, height=310, curated_only=True)
-        st.plotly_chart(fig_dt, width="stretch")
+        st.plotly_chart(fig_dt, use_container_width=True)
         
         # Prototype Legend Bar
         st.markdown('<div style="background: #030913; border: 1px solid #12365B; border-radius: 4px; padding: 4px 8px; font-size: 0.7rem; color: #94A8C2; display: flex; justify-content: space-around; margin-bottom: 4px;"><span><span style="color: #FF3B4F;">●</span> Critical</span><span><span style="color: #FF8A00;">●</span> High</span><span><span style="color: #FFC400;">●</span> Medium</span><span><span style="color: #16C784;">●</span> Low</span><span><span style="color: #00D9FF;">●</span> External</span></div></div>', unsafe_allow_html=True)
@@ -288,7 +369,7 @@ if page == "Overview":
     with g3:
         st.markdown("""<div style="background: #0A1422; border: 1px solid #12365B; border-radius: 8px; padding: 8px 12px 4px 12px;">""", unsafe_allow_html=True)
         fig_hm = render_risk_heatmap(asset_risks, height=335)
-        st.plotly_chart(fig_hm, width="stretch")
+        st.plotly_chart(fig_hm, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("<div style='margin-top: 4px;'></div>", unsafe_allow_html=True)
@@ -323,7 +404,7 @@ if page == "Overview":
 
         with opt_c2:
             fig_don = render_optimizer_donut(opt_res)
-            st.plotly_chart(fig_don, width="stretch")
+            st.plotly_chart(fig_don, use_container_width=True)
             st.button("OPTIMIZE ALLOCATION", key="btn_ov_opt_main_2")
 
         st.markdown("</div>", unsafe_allow_html=True)
@@ -351,7 +432,7 @@ if page == "Overview":
             st.markdown(f'<div style="display: flex; gap: 8px; margin-top: 2px;"><div style="flex: 1; background: rgba(255, 59, 79, 0.1); border: 1px solid #FF3B4F; border-radius: 4px; padding: 4px; text-align: center;"><div style="color: #FF3B4F; font-size: 0.65rem; font-weight: 700;">CURRENT STATE</div><div style="color: #F3F7FF; font-size: 1.0rem; font-weight: 800;">{sim_res["current_risk_score"]:.1f}/100</div><div style="color: #94A8C2; font-size: 0.62rem;">{format_currency_inr(sim_res["current_financial_exposure"])}</div></div><div style="flex: 1; background: rgba(22, 199, 132, 0.1); border: 1px solid #16C784; border-radius: 4px; padding: 4px; text-align: center;"><div style="color: #16C784; font-size: 0.65rem; font-weight: 700;">SIMULATED OUTCOME</div><div style="color: #F3F7FF; font-size: 1.0rem; font-weight: 800;">{sim_res["simulated_risk_score"]:.1f}/100</div><div style="color: #94A8C2; font-size: 0.62rem;">{format_currency_inr(sim_res["simulated_financial_exposure"])}</div></div></div>', unsafe_allow_html=True)
 
         fig_sim_chart = render_what_if_chart(sim_res)
-        st.plotly_chart(fig_sim_chart, width="stretch")
+        st.plotly_chart(fig_sim_chart, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
     with r2_3:
@@ -382,13 +463,13 @@ elif page == "Digital Twin":
 
     graph_data = client.get_digital_twin_graph()
     fig_dt = render_digital_twin_graph(graph_data, height=520, curated_only=False)
-    st.plotly_chart(fig_dt, width="stretch")
+    st.plotly_chart(fig_dt, use_container_width=True)
 
     with st.expander("🔍 View Digital Twin Topology Node Details"):
         nodes = graph_data.get("nodes", [])
         if nodes:
             df_nodes = pd.DataFrame(nodes)
-            st.dataframe(df_nodes, width="stretch")
+            st.dataframe(df_nodes, use_container_width=True)
 
 # ==============================================================================
 # 3. ATTACK PATHS SUBPAGE
@@ -403,7 +484,7 @@ elif page == "Attack Paths":
     if top_path and top_path.get("path"):
         st.markdown("### 🎯 Top Critical Attack Path")
         fig_path = render_attack_path_diagram(top_path)
-        st.plotly_chart(fig_path, width="stretch")
+        st.plotly_chart(fig_path, use_container_width=True)
 
         col_p1, col_p2 = st.columns(2)
         with col_p1:
@@ -427,7 +508,7 @@ elif page == "Attack Paths":
                 "Financial Exposure": format_currency_inr(p["potential_financial_exposure"]),
                 "Weak Points Count": len(p["weakest_points"]),
             })
-        st.dataframe(pd.DataFrame(path_table_data), width="stretch")
+        st.dataframe(pd.DataFrame(path_table_data), use_container_width=True)
 
 # ==============================================================================
 # 4. RISK ANALYSIS SUBPAGE
@@ -436,10 +517,10 @@ elif "Risk" in page:
     st.title("Asset Risk Heatmap & Detailed Analysis")
     
     fig_hm_full = render_risk_heatmap(asset_risks, height=450)
-    st.plotly_chart(fig_hm_full, width="stretch")
+    st.plotly_chart(fig_hm_full, use_container_width=True)
 
     fig_bar = render_risk_bar_chart(asset_risks)
-    st.plotly_chart(fig_bar, width="stretch")
+    st.plotly_chart(fig_bar, use_container_width=True)
 
     st.markdown("### 🛡️ Asset Risk Breakdown Table")
     risk_df_data = []
@@ -456,7 +537,7 @@ elif "Risk" in page:
             "Control Coverage": f"{int(a['combined_control_effectiveness'] * 100)}%",
             "Risk Drivers": ", ".join(a["risk_drivers"]),
         })
-    st.dataframe(pd.DataFrame(risk_df_data), width="stretch")
+    st.dataframe(pd.DataFrame(risk_df_data), use_container_width=True)
 
     st.markdown("---")
     st.markdown("### 🤖 ML Exploit Intelligence")
@@ -477,7 +558,7 @@ elif "Risk" in page:
                 "Top Contributing Features": ", ".join(t.get("top_contributing_features", [])),
                 "AI Priority Score": f"{t.get('ai_assisted_priority_score', 0):.1f}/100",
             })
-        st.dataframe(pd.DataFrame(ml_table_data), width="stretch")
+        st.dataframe(pd.DataFrame(ml_table_data), use_container_width=True)
 
 
 # ==============================================================================
@@ -548,7 +629,7 @@ elif page == "Investment Optimizer":
                         "Estimated Risk Reduction": format_currency_inr(sc["estimated_risk_reduction"]),
                         "ROSI (%)": f"{sc['rosi']:.1f}%",
                     })
-                st.dataframe(pd.DataFrame(ctrl_df_data), width="stretch")
+                st.dataframe(pd.DataFrame(ctrl_df_data), use_container_width=True)
             else:
                 st.warning("No security control fits within the specified budget.")
 
@@ -661,7 +742,7 @@ elif "ML" in page or page == "🤖 ML Exploit Intelligence":
         chart_col, table_col = st.columns([1.15, 1.0])
         with chart_col:
             fig_ml_prob = render_exploit_probability_chart(top_threats, height=350)
-            st.plotly_chart(fig_ml_prob, width="stretch")
+            st.plotly_chart(fig_ml_prob, use_container_width=True)
 
         with table_col:
             st.markdown("##### Detailed Threat Breakdown")
@@ -677,7 +758,7 @@ elif "ML" in page or page == "🤖 ML Exploit Intelligence":
                     "Risk Level": t.get("risk_level"),
                     "Confidence": t.get("confidence"),
                 })
-            st.dataframe(pd.DataFrame(threat_rows), width="stretch")
+            st.dataframe(pd.DataFrame(threat_rows), use_container_width=True)
     else:
         st.warning("⚠️ ML Top Threats prediction service unavailable.")
 
@@ -690,7 +771,7 @@ elif "ML" in page or page == "🤖 ML Exploit Intelligence":
         st.markdown("### 📊 Model Feature Importance")
         importances = ai_status.get("feature_importances", {})
         fig_feat_imp = render_feature_importance_chart(importances, height=310)
-        st.plotly_chart(fig_feat_imp, width="stretch")
+        st.plotly_chart(fig_feat_imp, use_container_width=True)
         st.caption("Feature importance shows which inputs influence the Random Forest model most strongly overall.")
 
     with p_col:
@@ -753,19 +834,19 @@ elif page == "Assets & Vulnerabilities":
 
     with tab_bs:
         bs_data = client.get_business_services()
-        st.dataframe(pd.DataFrame(bs_data), width="stretch")
+        st.dataframe(pd.DataFrame(bs_data), use_container_width=True)
 
     with tab_as:
         as_data = client.get_assets()
-        st.dataframe(pd.DataFrame(as_data), width="stretch")
+        st.dataframe(pd.DataFrame(as_data), use_container_width=True)
 
     with tab_vul:
         vul_data = client.get_vulnerabilities()
-        st.dataframe(pd.DataFrame(vul_data), width="stretch")
+        st.dataframe(pd.DataFrame(vul_data), use_container_width=True)
 
     with tab_ctrl:
         ctrl_data = client.get_security_controls()
-        st.dataframe(pd.DataFrame(ctrl_data), width="stretch")
+        st.dataframe(pd.DataFrame(ctrl_data), use_container_width=True)
 
 # ==============================================================================
 # 8. ALERTS SUBPAGE
